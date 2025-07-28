@@ -1,5 +1,14 @@
-# app/main.py
 from fastapi import FastAPI
 
+from app.api.v1.router import api_router
+
 app = FastAPI()
-# app.include_router(users.router, prefix="/api/users", tags=["Users"])
+
+
+@app.get("/")
+async def read_root():
+    """A simple endpoint to confirm the server is running."""
+    return {"status": "ok"}
+
+
+app.include_router(api_router, prefix="/api/v1")
